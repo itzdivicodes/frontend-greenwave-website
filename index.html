@@ -1,0 +1,419 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+        <title>Eco-Tech Revolution - Sustainable & Smart Gadgets</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="/styles/style.css">
+        <script src="/script/login.js" lang="javascript"></script>
+        <script src="/script/cart.js" lang="javascript"></script>
+
+</head>
+<body>
+
+<!-- Login Form Start -->
+<div class="form-popup" id="myForm" style="display:none">
+  <form action="javascript:void(0);" class="form-container" onsubmit="login()">
+    <h1>Login</h1>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" id="email" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" id="psw" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit" class="btn">Login</button>
+  </form>
+</div>
+
+<script lang="javascript">
+// Function to show the login form when the page is loaded
+let blnLoginStatus = false;
+
+//Cart
+let arrCartObj = [];
+let nTotalCost = 0;
+let nTotalSaved = 0;
+
+ //Login 
+window.onload = function() {
+  document.body.style.visibility = 'visible';
+  openForm();
+
+  
+ //Contactus Form
+ document.getElementById("contactForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form from actually submitting
+        
+        // Show success message
+        document.getElementById("successMessage").style.display = "block";
+
+        // Optional: Clear the form
+        document.getElementById("contactForm").reset();
+
+        setTimeout(() => {
+            document.getElementById("successMessage").style.display = "none"
+     }, 5000);  
+    });
+ 
+
+};
+
+</script>
+
+<!-- Order Confirmation   Start  -->
+
+<div class="order-popup" id="OrderPopup">
+    <p id="orderHeading" style="font-size: 18px; font-style: bold;margin-top: 15px;">Thank you </p>
+    <p id="orderConf" style="font-size: 12px; font-style: bold;margin-top: 20px;">Order has been submitted successfully</p>
+    <button class="Ackbtn" onclick="CloseNow()">Close</button> 
+</div>
+
+
+ <!-- Cart From Start  -->
+
+<div class="overlay" id="overlay"></div>
+<div class="cart-popup" id="cartPopup">
+    <h2 style="margin-bottom: 20px; font-style: normal;color: #007bff;">Cart Details</h2>
+    <div id="divCartItems" style="height: 240px;overflow-y: auto;"></div>
+    <p id="pTotalCost" style="font-size: 12px; font-style: bold;margin-top: 5px;">Total Cost: $0</p>
+    <p id="pTotalSave" style="font-size: 12px; font-style: bold; color: green; ">Saved: $0</p>
+    <div class="confirm-item" onclick="buyNow()">
+        <button class="buy-now-btn">Buy Now</button> &nbsp;&nbsp;&nbsp;&nbsp;<button class="close-btn"  onclick="closeCart()">Close</button>
+    </div>
+</div>
+
+<!-- header section starts -->
+
+<header>
+    <input type="checkbox" name="" id="toggler">
+    <label for="toggler" class="fas fa-bars"></label>
+    <a href="#" class="logo">GreenWave<span>...</span></a>
+    <nav class="navbar">
+        <a href="#home">home</a>
+        <a href="#about">about</a>
+        <a href="#products">products</a>
+        <a href="#review">review</a>
+        <a href="#contact">contact</a>
+    </nav>
+    <div class="icons">
+        <a href="javascript:void(0);" class="fas fa-shopping-cart" onclick="toggleCart();"></a>
+        <a href="javascript:void(0);" class="fas fa-user" onclick="toggleUserDetails();" ></a>
+        <span class="user-details" id="userDetails" style="display:none">
+            <p id="userName">Welcome, User!</p>
+            <button onclick="logout()">Logout</button>
+          </span>
+    </div>
+</div>
+</header>
+
+<!-- home section starts -->
+
+<section class="home" id="home">
+    <div class="content">
+        <h3>Eco-Tech Revolution</h3>
+        <span>Sustainable & Smart Gadgets</span>
+        <p>Nature meets innovation in every click, charge, and swipe. From plant-based materials to 
+            biodegradable designs, these gadgets are as kind to the earth as they are to your tech. </p>
+        <p>Embrace a cleaner future, one device at a time.</p>
+    </div>
+</section>
+
+<!-- about section starts -->
+
+<section class="about" id="about">
+    <h1 class="heading"><span> about </span> us </h1>
+    <div class="row">
+        <div class="video-container">
+            <video src="/videos/flower.mp4" loop autoplay muted></video>
+            <h3>best tech gadgets</h3>
+        </div>
+        <div class="content">
+            <h3>why choose us?</h3>
+            <p>Innovative, sustainable, and tech-forward. Our products are crafted from eco-friendly materials 
+                that protect the planet without compromising on performance. Join us in shaping a smarter, greener 
+                future—one device at a time. </p>
+            <p>By choosing us, you’re investing in more than just great tech—you’re helping create a more sustainable world, today and for the future.</p>
+        </div>
+    </div>
+</section>
+
+<!-- icon section starts -->
+
+<section class="icons-container">
+    <div class="icons">
+        <img src="/images/greenwave2.jpg" alt="">
+        <div class="info">
+            <h3>free delivery</h3>
+            <span>on all orders</span>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img src="/images/icon-02.png" alt="">
+        <div class="info">
+            <h3>10 days returns</h3>
+            <span>money back guarantee</span>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img src="/images/icon-03.jpg" alt="">
+        <div class="info">
+            <h3>offer & gifts</h3>
+            <span>on all orders</span>
+        </div>
+    </div>
+
+    <div class="icons">
+        <img src="/images/icon-04.png" alt="">
+        <div class="info">
+            <h3>secure payments</h3>
+            <span>protected by paytm</span>
+        </div>
+    </div>  
+</section>
+
+<!-- prodcuts section starts -->
+
+<section class="products" id="products">
+    <h1 class="heading"> latest <span>products</span></h1>
+    <div class="box-container">
+        <div class="box">
+            <span class="discount">-10%</span>
+            <div class="image">
+                <img src="/images/image-1.jpg" alt="">
+                <div class="icons">
+                    <button class="button" onclick="addToCartObject(1,'Phone Case',1000,900)">add to cart</button>
+                </div>
+             </div>
+          
+             <div class="content">
+                <span class="message" id="spanProductMsg1"></span>
+                <h3>Phone Case</h3>
+                <div class="price"> <span style="text-decoration: line-through;color: black; margin-right: 20px;" >₹1000</span><span>₹900</span> </div>
+              
+            </div>
+        </div>
+
+        <div class="box">
+            <span class="discount">-15%</span>
+            <div class="image">
+                <img src="/images/image-2.jpg" alt="">
+                <div class="icons">
+                    <button class="button" onclick="addToCartObject(2,'Mouse Pad',500,425)">add to cart</button>
+                </div>
+            </div>
+            <div class="content">
+                <span class="message" id="spanProductMsg2"></span>
+                <h3>Mouse Pad</h3>
+                <div class="price"> <span style="text-decoration: line-through;color: black; margin-right: 20px;" >₹500</span><span>₹425</span> </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <span class="discount">-20%</span>
+            <div class="image">
+                <img src="/images/image-3.jpg" alt="">
+                <div class="icons">
+                    <button class="button" onclick="addToCartObject(3,'Pen Drive',5135,4108)">add to cart</button>
+                </div>
+            </div>
+            <div class="content">
+                <span class="message" id="spanProductMsg3"></span>
+                <h3>Pen Drive</h3>
+                <div class="price"> <span style="text-decoration: line-through;color: black; margin-right: 20px;" >₹5135</span><span>₹4108</span> </div>
+            </div>
+        </div>
+        
+
+        <div class="box">
+            <span class="discount">-20%</span>
+            <div class="image">
+                <img src="/images/image-5.jpg" alt="">
+                <div class="icons">
+                    <button class="button" onclick="addToCartObject(4,'Phone Stand',499,399)">add to cart</button>
+                </div>
+            </div>
+            <div class="content">
+                <span class="message" id="spanProductMsg4"></span>
+                <h3>Phone Stand</h3>
+                <div class="price"> <span style="text-decoration: line-through;color: black; margin-right: 20px;" >₹499</span><span>₹399</span> </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <span class="discount">-5%</span>
+            <div class="image">
+                <img src="/images/image-4.png" alt="">
+                <div class="icons">
+                    <button class="button" onclick="addToCartObject(5,'Air Pods',2995,2845)">add to cart</button>
+                </div>
+            </div>
+            <div class="content">
+                <span class="message" id="spanProductMsg5"></span>
+                <h3>Air Pods</h3>
+                <div class="price"> <span style="text-decoration: line-through;color: black; margin-right: 20px;" >₹2995</span><span>₹2845</span> </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <span class="discount">-20%</span>
+            <div class="image">
+                <img src="/images/image-6.jpg" alt="">
+                <div class="icons">
+                    <button class="button" onclick="addToCartObject(6,'Laptop Stand',375,300)">add to cart</button>
+                </div>
+            </div>
+            <div class="content">
+                <span class="message" id="spanProductMsg6"></span>
+                <h3>Laptop Stand</h3>
+                <div class="price"> <span style="text-decoration: line-through;color: black; margin-right: 20px;" >₹375</span><span>₹300</span> </div>
+            </div>
+        </div>
+        
+        <div class="box">
+            <span class="discount">-17%</span>
+            <div class="image">
+                <img src="/images/image-7.jpg" alt="">
+                <div class="icons">
+                    <button class="button" onclick="addToCartObject(7,'Multiple Connector',1799,1493)">add to cart</button>
+                </div>
+            </div>
+            <div class="content">
+                <span class="message" id="spanProductMsg7"></span>
+                <h3>Multiple Connector</h3>
+                <div class="price"> <span style="text-decoration: line-through;color: black; margin-right: 20px;" >₹1799</span><span>₹1493</span> </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <span class="discount">-10%</span>
+            <div class="image">
+                <img src="/images/image-8.jpg" alt="">
+                <div class="icons">
+                    <button class="button" onclick="addToCartObject(8,'Power Bank',3999,3599)">add to cart</button>
+                </div>
+            </div>
+            <div class="content">
+                <span class="message" id="spanProductMsg8"></span>
+                <h3>Power Bank</h3>
+                <div class="price"> <span style="text-decoration: line-through;color: black; margin-right: 20px;" >₹3999</span><span>₹3599</span> </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <span class="discount">-5%</span>
+            <div class="image">
+                <img src="/images/image-9.jpg" alt="">
+                <div class="icons">
+                    <button class="button" onclick="addToCartObject(9,'Wireless Charger',1699,1614)">add to cart</button>
+                </div>
+            </div>
+            <div class="content">
+                <span class="message" id="spanProductMsg9"></span>
+                <h3>Wireless Charger</h3>
+                <div class="price"> <span style="text-decoration: line-through;color: black; margin-right: 20px;" >₹1699</span><span>₹1614</span> </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- review section starts -->
+
+<section class="review" id="review">
+    <h1 class="heading"> customer's <span>review</span> </h1>
+    <div class="box-container">
+        <div class="box">
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p>This power bank is amazing! The design is so unique with its natural wood finish, 
+                and it charges my phone quickly with no issues. It feels sturdy and reliable, 
+                just like any other high-quality power bank, but with the added bonus of being a 
+                more sustainable choice. I’m really happy with it and love how it looks too!</p>
+            <div class="user">
+                <img src="/images/boy.jpg" alt="">
+                <div class="user-info">
+                    <h3>Zenitsu</h3>
+                    <span>happy customer</span>
+                </div>
+            </div>
+           <span class="fas.fa-quote-right"></span>
+        </div>
+
+        <div class="box">
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <p>I’m really impressed with this phone case! It fits perfectly, provides great protection, 
+                and feels really sturdy. The design is sleek and has a nice, natural texture that makes 
+                it stand out. It’s just as comfortable to hold as any other case, and I love that it's 
+                made from sustainable materials. Definitely a win for both style and functionality!</p>
+            <div class="user">
+                <img src="/images/girl02.jpg" alt="">
+                <div class="user-info">
+                    <h3>Nezuko</h3>
+                    <span>happy customer</span>
+                </div>
+            </div>
+           <span class="fas.fa-quote-right"></span>
+        </div>
+    </div>
+</section>
+
+<!-- contact section starts -->
+
+<section class="contact" id="contact">
+    <h1 class="heading"><span> contact </span> us </h1>
+    <div class="row">
+        <form id="contactForm">
+            <input type="text" placeholder="name" class="box">
+            <input type="email" placeholder="email address" class="box">
+            <input type="number" placeholder="contact number" class="box">
+            <textarea name="" class="box" placeholder="enter your Comments" id="" cols="30" rows="10"></textarea>
+            <button type="submit" class="btn1">Send Message</button>
+            <div id="successMessage" class="success-message"  style="display: none; margin-top: 5px;" > Message successfully sent </div>
+        </form>
+        <div class="image">
+            <img src="/images/contact3.jpeg" alt="">
+        </div>
+       
+    </div>
+</section>
+<!-- footer section starts -->
+
+<section class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>locations</h3>
+            <a href="#">India</a>
+            <a href="#">USA</a>
+            <a href="#">Japan</a>
+            <a href="#">France</a>
+            <img src="/images/location.png" alt="">
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#">123-456-7890</a>
+            <a href="#">greenwave@gmail.com</a>
+            <a href="#">chennai, india - 600091</a>
+            <img src="/images/payment.png" alt="">
+        </div>
+    </div>
+    <div class="credit"> created by <span> ms. Divya Pugalendiran </span> | all rights reserved </div>
+</section>
+</body>
+</html>

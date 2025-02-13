@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+  visibility: hidden; /* Initially hide main content */
+}
+
+* {box-sizing: border-box;}
+
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 20px;
+  background-color: white;
+  margin: 50px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+  border-radius: 4px;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+/* User Icon styles */
+.user-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  visibility: hidden; /* Initially hidden */
+  background-color: #04AA6D;
+  padding: 10px;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+}
+
+.user-details {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;
+}
+</style>
+</head>
+<body>
+
+<!-- User Icon -->
+<div class="user-icon" id="userIcon" onclick="toggleUserDetails()">👤</div>
+<div class="user-details" id="userDetails">
+  <p id="userName">Welcome, User!</p>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<!-- Login Form -->
+<div class="form-popup" id="myForm">
+  <form action="javascript:void(0);" class="form-container" onsubmit="login()">
+    <h1>Login</h1>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" id="email" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" id="psw" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit" class="btn">Login</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+<script>
+// Function to show the login form when the page is loaded
+window.onload = function() {
+  document.body.style.visibility = 'visible';
+  openForm();
+};
+
+// Open the login form
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+// Close the login form
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+
+// Simulate the login process
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("psw").value;
+
+  // Check login credentials (for demo, using a simple condition)
+  if (email && password) {
+    document.getElementById("myForm").style.display = "none"; // Hide form
+    document.body.style.visibility = 'visible'; // Show main page
+
+    // Show user icon and details
+    document.getElementById("userIcon").style.visibility = 'visible';
+    document.getElementById("userDetails").style.display = 'block';
+    document.getElementById("userName").innerText = `Welcome, ${email}!`;
+
+    alert("You have successfully logged in!");
+  } else {
+    alert("Please enter valid login details.");
+  }
+}
+
+// Toggle user details visibility
+function toggleUserDetails() {
+  const details = document.getElementById("userDetails");
+  details.style.display = details.style.display === "none" ? "block" : "none";
+}
+
+// Logout function
+function logout() {
+  document.getElementById("userDetails").style.display = "none";
+  document.getElementById("userIcon").style.visibility = 'hidden';
+  alert("You have logged out.");
+}
+</script>
+
+</body>
+</html>
